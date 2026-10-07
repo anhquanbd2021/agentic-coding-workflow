@@ -1,0 +1,16 @@
+{
+  "name": "agentic-coding-workflow-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The Loop Lab — run one task through the agentic explore→plan→code→verify loop, or skip it and ship latent failures.",
+  "scripts": {
+    "start": "node app/server.js",
+    "report": "node scripts/report.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "check": "npm test && npm run report"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

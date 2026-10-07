@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Loop Lab — run one coding task through the agentic explore→plan→code→verify loop, or skip it and watch latent failures ship.">
+  <title>The Loop Lab — agentic coding workflow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+<!-- pb-shell --><link rel="stylesheet" href="./pb-shell.css"><!-- pb-shell -->
+<!-- pb-back --><link rel="stylesheet" href="./pb-back.css"><!-- pb-back --></head>
+<body>
+<main>
+  <nav aria-label="Primary"><a aria-current="page" href="/">Lab</a><a href="/guide.html">Guide</a><a href="https://github.com/anhquanbd2021/agentic-coding-workflow">Source</a></nav>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">The Loop Lab · one task, three ways</p>
+      <h1>"Looks done" is not a signal.</h1>
+      <p class="lede">A scripted agent gets one task — <em>10% off orders ≥ $100</em> — on a small codebase with hidden conventions. Run it through the <strong>explore → plan → code → verify</strong> loop, or skip phases and watch which failures ship latent.</p>
+    </div>
+    <p class="warning"><strong>Safe educational demo.</strong> A deterministic simulation of the workflow — no LLM, no real repo is modified, everything runs locally.</p>
+  </header>
+
+  <section class="workspace" aria-label="Run configuration">
+    <section class="panel controls" aria-labelledby="config-title">
+      <div><p class="eyebrow">The task</p><h2 id="config-title">Configure the run</h2></div>
+      <p class="task-brief" id="task-brief"></p>
+      <div class="toggles">
+        <label><input type="checkbox" id="do-explore" checked> <strong>Explore</strong> — read files before touching code</label>
+        <label><input type="checkbox" id="do-plan" checked> <strong>Plan</strong> — produce a reviewable step list first</label>
+        <label><input type="checkbox" id="do-verify" checked> <strong>Verify</strong> — a runnable check gates "done"</label>
+      </div>
+      <fieldset class="reads" id="reads">
+        <legend>Files the agent reads while exploring</legend>
+      </fieldset>
+      <button id="run" type="button">Run the task</button>
+      <p class="muted">Uncheck files to simulate a shallow explore — partial knowledge produces partial failures.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="trace-title">
+      <div class="section-heading"><div><p class="eyebrow">Run trace</p><h2 id="trace-title">What each phase produced</h2></div><span id="verdict" class="badge" role="status" aria-live="polite">Ready</span></div>
+      <ol id="phases" class="phases" aria-label="Phase trace"></ol>
+    </section>
+  </section>
+
+  <section class="panel" aria-labelledby="checks-title">
+    <div><p class="eyebrow">Ground truth</p><h2 id="checks-title">The repo's checks — whether or not anyone runs them</h2></div>
+    <ul id="checks" class="checks" aria-label="Check results"></ul>
+    <p class="muted">The checks exist even when Verify is off — they just ship unexecuted. "Feature works" passes in every variant: plausible-looking work is not verified work.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="matrix-title">
+    <div><p class="eyebrow">Side by side</p><h2 id="matrix-title">Same task, three workflows</h2></div>
+    <div class="table-wrap"><table class="matrix" id="matrix"><thead><tr><th>Workflow</th><th>Feature works</th><th>Cart = invoice</th><th>Exact cents</th><th>Audit line</th><th>Verdict</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <p class="footer-links"><a href="/guide.html">Read the guide</a> · <a href="https://github.com/anhquanbd2021/agentic-coding-workflow">Inspect source and tests</a></p>
+</main>
+<script type="module" src="/app.js"></script>
+<!-- pb-shell --><a class="pb-shell" href="https://github.com/anhquanbd2021/agentic-coding-workflow" title="agentic-coding-workflow — an Article Playbook demo (view source)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="9" height="9" rx="2" fill="#2dd4bf"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="13" y="13" width="9" height="9" rx="4.5" fill="#2dd4bf"/></svg><b>agentic-coding-workflow</b><i>DEMO</i></a><!-- pb-shell --><!-- pb-back --><a class="pb-back" id="pb-back" href="https://github.com/anhquanbd2021/agentic-coding-workflow" title="Back to the article — agentic-coding-workflow">← Article <i>PLAYBOOK</i></a><script>(function(){var a=document.getElementById('pb-back');if(!a)return;var h=location.hostname;if(/^(localhost|127\.0\.0\.1|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(h)){a.href='//'+h+':'+(/^(localhost|127\.0\.0\.1)$/.test(h)?'1234':'30082')+'/microsites/article.html?slug=agentic-coding-workflow';}})();</script><!-- pb-back --></body>
+</html>

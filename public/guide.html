@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Guide to The Loop Lab — what each phase of the agentic coding loop contributes and what fails without it.">
+  <title>The Loop Lab Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+<!-- pb-shell --><link rel="stylesheet" href="./pb-shell.css"><!-- pb-shell -->
+<!-- pb-back --><link rel="stylesheet" href="./pb-back.css"><!-- pb-back --></head>
+<body>
+<main>
+  <nav aria-label="Primary"><a href="/">Lab</a><a aria-current="page" href="/guide.html">Guide</a><a href="https://github.com/anhquanbd2021/agentic-coding-workflow">Source</a></nav>
+  <header>
+    <p class="eyebrow">Guide</p>
+    <h1>What each phase buys you</h1>
+    <p class="lede">Every phase in the explore → plan → code → verify loop removes a class of failure. This page maps each phase to the failure it prevents — and to the check that would have caught it.</p>
+    <p class="warning"><strong>A model, not an LLM.</strong> The lab is a scripted simulation: it shows <em>what each phase contributes</em>, not the internals of any real agent.</p>
+  </header>
+
+  <section class="panel">
+    <p class="eyebrow">Start here</p>
+    <h2>What this demo proves</h2>
+    <p>The same task — <em>10% off orders ≥ $100</em> — run three ways on a codebase with hidden conventions: money is integer cents, one shared <code>totals.mjs</code> feeds both cart and invoice, and adjustments must appear as invoice lines. <strong>Prompt-first</strong> produces plausible work that fails three checks nobody ran. <strong>Verify-only</strong> catches them after the wrong work is done. <strong>The full loop</strong> passes on the first verified run — because the implement step is built from facts, not guesses.</p>
+    <p><a class="try" href="/">Run it in the lab</a></p>
+  </section>
+
+  <section class="guide-section">
+    <p class="eyebrow">The loop</p>
+    <h2>Four phases, four failure classes</h2>
+    <div class="control-grid">
+      <article class="panel control"><span class="control-number">Phase 01</span><h3>Explore</h3><p>Reading files yields facts that are invisible from the task text: shared totals, integer-cents math, the line-item convention, the existing test suite.</p><dl><dt>Skip it</dt><dd>The agent writes the "obvious" change — duplicated logic in <code>cart.mjs</code>, float math, silent totals.</dd></dl></article>
+      <article class="panel control"><span class="control-number">Phase 02</span><h3>Plan</h3><p>A written plan turns "vibes" into a reviewable artifact — steps that name the files and conventions they depend on.</p><dl><dt>Skip it</dt><dd>Nothing to approve; a wrong approach costs a whole implementation instead of a plan revision.</dd></dl></article>
+      <article class="panel control"><span class="control-number">Phase 03</span><h3>Implement</h3><p>The code an agent writes is a direct function of what it knows: the variant it picks is chosen by discovered facts.</p><dl><dt>Watch for</dt><dd>Partial knowledge produces partial failures — skip <code>invoice.mjs</code> and the audit line never appears.</dd></dl></article>
+      <article class="panel control"><span class="control-number">Phase 04</span><h3>Verify</h3><p>A runnable check (tests, build, screenshot diff) gives the loop a stop condition and turns "done" into evidence.</p><dl><dt>Skip it</dt><dd>"Looks done" is the only signal — <code>feature-works</code> passes in every variant while three checks fail latent.</dd></dl></article>
+    </div>
+  </section>
+
+  <section class="guide-section">
+    <p class="eyebrow">Architecture</p>
+    <h2>How the demo is built</h2>
+    <div class="table-wrap panel"><table><thead><tr><th>Layer</th><th>Behavior</th><th>Evidence</th></tr></thead><tbody><tr><td>Fixture repo</td><td>A virtual codebase: files carry discoverable facts; checks assert cart/invoice consistency, exact cents, and audit lines.</td><td><code>public/repo.mjs</code></td></tr><tr><td>Agent</td><td>Runs explore → plan → implement → verify; the edit variant is selected by which facts were discovered.</td><td><code>public/agent.mjs</code></td></tr><tr><td>Report</td><td>CLI side-by-side of the three workflows; exits non-zero if the full loop fails.</td><td><code>scripts/report.mjs</code></td></tr><tr><td>Server</td><td>Zero-dependency static host plus /health and /version. No build step.</td><td><code>app/server.js</code></td></tr></tbody></table></div>
+  </section>
+
+  <section class="guide-section">
+    <p class="eyebrow">Run locally</p>
+    <h2>Inspect the evidence</h2>
+    <pre class="code-block">npm test         # repo checks + loop outcomes + server
+npm run report   # side-by-side matrix of the three workflows
+npm run check    # both
+npm start        # serve the lab on :3000</pre>
+    <p>Toggle phases and file reads in the lab — partial explores produce partial failures.</p>
+  </section>
+
+  <section class="guide-section panel">
+    <p class="eyebrow">Limits</p>
+    <h2>What this demo does not claim</h2>
+    <ul>
+      <li>It is a scripted model of the workflow — no LLM runs; it demonstrates what each phase contributes, not any agent's internals.</li>
+      <li>The four checks stand in for a real test suite — real projects need real tests wired as the agent's stop condition.</li>
+      <li>Facts here are all-or-nothing; real exploration yields degrees of understanding.</li>
+      <li>The "agent" never argues back — real sessions need course-correction, not just a pipeline.</li>
+    </ul>
+    <p><a class="try" href="/">Return to Lab</a></p>
+  </section>
+</main>
+<!-- pb-shell --><a class="pb-shell" href="https://github.com/anhquanbd2021/agentic-coding-workflow" title="agentic-coding-workflow — an Article Playbook demo (view source)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="9" height="9" rx="2" fill="#2dd4bf"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="13" y="13" width="9" height="9" rx="4.5" fill="#2dd4bf"/></svg><b>agentic-coding-workflow</b><i>DEMO</i></a><!-- pb-shell --><!-- pb-back --><a class="pb-back" id="pb-back" href="https://github.com/anhquanbd2021/agentic-coding-workflow" title="Back to the article — agentic-coding-workflow">← Article <i>PLAYBOOK</i></a><script>(function(){var a=document.getElementById('pb-back');if(!a)return;var h=location.hostname;if(/^(localhost|127\.0\.0\.1|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(h)){a.href='//'+h+':'+(/^(localhost|127\.0\.0\.1)$/.test(h)?'1234':'30082')+'/microsites/article.html?slug=agentic-coding-workflow';}})();</script><!-- pb-back --></body>
+</html>
